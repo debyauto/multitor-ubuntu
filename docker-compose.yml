@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+
+  tor:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        - RENEW=${RENEW:-300}
+        - PORT=${PORT:-9050}
+    restart: always
+    command: /usr/bin/tor -f /etc/tor/torrc
+    environment:
+      - RENEW=${RENEW:-300}
+      - PORT=${PORT:-9050}
+    ports:
+      - ${PORT:-9050}:${PORT:-9050}
